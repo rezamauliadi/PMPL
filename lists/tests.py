@@ -14,11 +14,5 @@ class HomePageTest(TestCase):
 	def test_home_page_returns_correct_html(self):
 		request = HttpRequest()
 		response = home_page(request)
-		
-		self.assertTrue(response.content.startswith(b'<html>'))
-		self.assertIn(b'<title>Coba</title>', response.content)
-		self.assertIn(b'<body>', response.content)
-		self.assertIn(b'<p>Reza Mauliadi</p>', response.content)
-		self.assertIn(b'<p>1506782404</p>', response.content)
-		self.assertIn(b'</body>', response.content)
-		self.assertTrue(response.content.strip().endswith(b'</html>'))
+		expected_html = render_to_string('home.html')
+		self.assertEqual(response.content.decode(), expected_html)
