@@ -15,7 +15,7 @@ class NewVisitorTest(unittest.TestCase):
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
 		self.assertIn(row_text, [row.text for row in rows])
-
+	
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# Edith has heard about a cool new online to-do app. She goes
 		# to check out its homepage
@@ -28,10 +28,7 @@ class NewVisitorTest(unittest.TestCase):
 		
 		# She is invited to enter a to-do item straight away
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		self.assertEqual(
-			inputbox.get_attribute('placeholder'),
-			'Enter a to-do item'
-		)
+		self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
 		# She types "Buy peacock feathers" into a text box (Edith's hobby
 		# is tying fly-fishing lures)
@@ -64,5 +61,38 @@ class NewVisitorTest(unittest.TestCase):
 		
 		# Satisfied, she goes back to sleep
 
+	#--------------------------------------------------------------#
+	def isi_inputan(self, inputannya):
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys(inputannya)
+		inputbox.send_keys(Keys.ENTER)
+	
+	def isi_tiga_buah(self):
+		self.isi_inputan('To-Do list pertama')
+		self.isi_inputan('To-Do list kedua')
+		self.isi_inputan('To-Do list ketiga')
+	
+	def isi_enam_buah(self):
+		self.isi_inputan('To-Do list pertama')
+		self.isi_inputan('To-Do list kedua')
+		self.isi_inputan('To-Do list ketiga')
+		self.isi_inputan('To-Do list keempat')
+		self.isi_inputan('To-Do list kelima')
+		self.isi_inputan('To-Do list keenam')
+	
+	def test_lab2(self):
+		self.browser.get('http://localhost:8000')
+		
+		self.isi_tiga_buah()
+		#self.isi_enam_buah()
+		
+		komentar = self.browser.find_element_by_id('komentar').text
+		
+		#self.assertIn('yey, waktunya berlibur', komentar)
+		self.assertIn('sibuk tapi santai', komentar)
+		#self.assertIn('oh tidak', komentar)
+	
+	#--------------------------------------------------------------#
+				
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
