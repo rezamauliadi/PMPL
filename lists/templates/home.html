@@ -18,13 +18,8 @@
 		
 		<br />
 		<h3>Komentar</h3>
-		{% if items|length == 0 %}
-			<p id="komentar">yey, waktunya berlibur</p>		
-		{% elif items|length < 5 %}
-			<p id="komentar">sibuk tapi santai</p>
-		{% else %}
-			<p id="komentar">oh tidak</p>
-		{% endif %}
+		<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>		
+		
 		
 	</body>
 </html>
