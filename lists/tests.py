@@ -74,30 +74,33 @@ class HomePageTest(TestCase):
 		self.assertIn('itemey 1', response.content.decode())
 		self.assertIn('itemey 2', response.content.decode())
 
-	def test_tutorial2_for_comment_yeywaktunyaberlibur(self):
-		request = HttpRequest()
-		response = home_page(request)
+
+
+
+#-------------------- end of unit tests ----------------------------#
+
+	#def test_tutorial2_for_comment_yeywaktunyaberlibur(self):
+		#request = HttpRequest()
+		#response = home_page(request)
 		
-		self.assertIn('yey, waktunya berlibur', response.content.decode())
+		#self.assertIn('yey, waktunya berlibur', response.content.decode())
 		
-	def test_tutorial2_for_comment_sibuktapisantai(self):
-		Item.objects.create(text='itemey 1')
-		Item.objects.create(text='itemey 2')
+	#def test_tutorial2_for_comment_sibuktapisantai(self):
+		#Item.objects.create(text='itemey 1')
 		
-		request = HttpRequest()
-		response = home_page(request)
+		#request = HttpRequest()
+		#response = home_page(request)
 		
-		self.assertIn('sibuk tapi santai', response.content.decode())
+		#self.assertIn('sibuk tapi santai', response.content.decode())
 		
-	def test_tutorial2_for_comment_ohtidak(self):
-		Item.objects.create(text='itemey 1')
-		Item.objects.create(text='itemey 2')
-		Item.objects.create(text='itemey 3')
-		Item.objects.create(text='itemey 4')
-		Item.objects.create(text='itemey 5')
-		Item.objects.create(text='itemey 6')
+	#def test_tutorial2_for_comment_ohtidak(self):
+		#Item.objects.create(text='itemey 1')
+		#Item.objects.create(text='itemey 2')
+		#Item.objects.create(text='itemey 3')
+		#Item.objects.create(text='itemey 4')
+		#Item.objects.create(text='itemey 5')
 		
-		request = HttpRequest()
-		response = home_page(request)
+		#request = HttpRequest()
+		#response = home_page(request)
 		
-		self.assertIn('oh tidak', response.content.decode())
+		#self.assertIn('oh tidak', response.content.decode())
