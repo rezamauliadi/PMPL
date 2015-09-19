@@ -3,7 +3,9 @@ from django.shortcuts import redirect, render
 from lists.models import Item, List
 
 def home_page(request):
-	return render(request, 'home.html')
+	alllist = List.objects.all()
+		
+	return render(request, 'home.html', {'thelists': alllist})
 
 def view_list(request, list_id):
 	list_ = List.objects.get(id=list_id)

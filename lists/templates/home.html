@@ -9,6 +9,14 @@
 			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
 			{% csrf_token %}
 		</form>
+		
+		<table id="id_list_table">
+			<tr> Daftar List yang ada: 
+				{% for list in thelists %}
+					<td><a href="/lists/{{ list.id }}" style="text-decoration: none">{{ list.id }} &nbsp </a></td>
+				{% endfor %}
+			</tr>
+		</table>
 	</body>
 </html>
  
