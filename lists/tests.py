@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 
-from lists.views import home_page
+from lists.views import home_page, view_list
 from lists.models import Item, List
 
 class HomePageTest(TestCase):
@@ -128,28 +128,37 @@ class ListAndItemModelsTest(TestCase):
 
 #-------------------- end of unit tests ----------------------------#
 
-	#def test_tutorial2_for_comment_yeywaktunyaberlibur(self):
-		#request = HttpRequest()
-		#response = home_page(request)
+	def test_tutorial2_for_comment_yeywaktunyaberlibur(self):
+		list_ = List()
+		list_.save()
 		
-		#self.assertIn('yey, waktunya berlibur', response.content.decode())
+		request = HttpRequest()
+		response = view_list(request, list_.id)
 		
-	#def test_tutorial2_for_comment_sibuktapisantai(self):
-		#Item.objects.create(text='itemey 1')
+		self.assertIn('yey, waktunya berlibur', response.content.decode())
 		
-		#request = HttpRequest()
-		#response = home_page(request)
+	def test_tutorial2_for_comment_sibuktapisantai(self):
+		list_ = List()
+		list_.save()
 		
-		#self.assertIn('sibuk tapi santai', response.content.decode())
+		Item.objects.create(text='itemey 1', list=list_)
 		
-	#def test_tutorial2_for_comment_ohtidak(self):
-		#Item.objects.create(text='itemey 1')
-		#Item.objects.create(text='itemey 2')
-		#Item.objects.create(text='itemey 3')
-		#Item.objects.create(text='itemey 4')
-		#Item.objects.create(text='itemey 5')
+		request = HttpRequest()
+		response = view_list(request, list_.id)
 		
-		#request = HttpRequest()
-		#response = home_page(request)
+		self.assertIn('sibuk tapi santai', response.content.decode())
 		
-		#self.assertIn('oh tidak', response.content.decode())
+	def test_tutorial2_for_comment_ohtidak(self):
+		list_ = List()
+		list_.save()
+		
+		Item.objects.create(text='itemey 1', list=list_)
+		Item.objects.create(text='itemey 2', list=list_)
+		Item.objects.create(text='itemey 3', list=list_)
+		Item.objects.create(text='itemey 4', list=list_)
+		Item.objects.create(text='itemey 5', list=list_)
+		
+		request = HttpRequest()
+		response = view_list(request, list_.id)
+		
+		self.assertIn('oh tidak', response.content.decode())

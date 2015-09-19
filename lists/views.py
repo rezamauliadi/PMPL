@@ -8,14 +8,16 @@ def home_page(request):
 def view_list(request, list_id):
 	list_ = List.objects.get(id=list_id)
 	
-	#komentar = 'oh tidak'
-	#if items.count() == 0:
-		#komentar = 'yey, waktunya berlibur'
-	#elif items.count() < 5:
-		#komentar = 'sibuk tapi santai'
-	#di rendernya --- 'komentarhtml': komentar
+	set_of_list = list_.item_set.all()
+	total = set_of_list.count()
 	
-	return render(request, 'list.html', {'list': list_})
+	komentar = 'oh tidak'
+	if total == 0:
+		komentar = 'yey, waktunya berlibur'
+	elif total < 5:
+		komentar = 'sibuk tapi santai'
+		
+	return render(request, 'list.html', {'list': list_, 'komentarhtml': komentar})
 	
 def new_list(request):
 	list_ = List.objects.create()
