@@ -5,16 +5,29 @@
 {% block form_action %}/lists/new{% endblock %}
 
 {% block table %}
-	<table id="id_list_table">
-		<tr> Daftar List yang ada: 
-			{% for list in thelists %}
-				<td><a href="/lists/{{ list.id }}" style="text-decoration: none">{{ list.id }} &nbsp </a></td>
-			{% endfor %}
-		</tr>
-	</table>
+	<div class="panel panel-default"  style="margin-top: -15px;">
+		<div class="panel-heading">
+			<h3 class="panel-title">Komentar</h3>
+		</div>
+		<div class="panel-body">
+			<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
+		</div>
+	</div>
 	
-	<br />
-	<h3>Komentar</h3>
-	<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
-	<p id="jumlah">Jumlah seluruh To-Do lists: {{ jumlah|default:"0" }}</p>
+	<div class="panel panel-default" style="margin-top: -20px;">
+		<div class="panel-body">
+			<p id="jumlah">Jumlah seluruh To-Do lists: <strong>{{ jumlah|default:"0" }}</strong></p>
+			<p>Daftar List yang ada: </p>
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					{% for list in thelists %}
+						<a href="/lists/{{ list.id }}" class="btn btn-default">{{ list.id }}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 {% endblock %}

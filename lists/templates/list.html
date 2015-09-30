@@ -11,11 +11,16 @@
 		{% endfor %}
 	</table>
 	
-	<br />
-	<h3>Komentar</h3>
-	<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Komentar</h3>
+		</div>
+		<div class="panel-body">
+			<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
+		</div>
+	</div>
 	
-	<a href="/" style="text-decoration: none"> &#10094 Back</a>
+	<a href="/" class="btn btn-default" style="text-decoration: none"> &#10094 Back</a>
 {% endblock %}
 
  
