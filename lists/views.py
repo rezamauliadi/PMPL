@@ -4,8 +4,20 @@ from lists.models import Item, List
 
 def home_page(request):
 	alllist = List.objects.all()
+	
+	totalList = 0
+	
+	for list_ in alllist:
+		countList = list_.item_set.all()
+		totalList = totalList + countList.count()
+	
+	komentar = 'oh tidak'
+	if totalList == 0:
+		komentar = 'yey, waktunya berlibur'
+	elif totalList < 5:
+		komentar = 'sibuk tapi santai'
 		
-	return render(request, 'home.html', {'thelists': alllist})
+	return render(request, 'home.html', {'thelists': alllist, 'komentarhtml': komentar, 'jumlah': totalList})
 
 def view_list(request, list_id):
 	list_ = List.objects.get(id=list_id)

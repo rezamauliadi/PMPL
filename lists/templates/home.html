@@ -12,4 +12,9 @@
 			{% endfor %}
 		</tr>
 	</table>
+	
+	<br />
+	<h3>Komentar</h3>
+	<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
+	<p id="jumlah">Jumlah seluruh To-Do lists: {{ jumlah|default:"0" }}</p>
 {% endblock %}
