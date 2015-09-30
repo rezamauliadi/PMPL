@@ -1,22 +1,15 @@
-<html>
-	<head>
-		<title>To-Do lists</title>
-	</head>
-	<body>
-		<h1>Start a new To-Do lists</h1>
-		
-		<form method="POST" action="/lists/new">
-			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
-			{% csrf_token %}
-		</form>
-		
-		<table id="id_list_table">
-			<tr> Daftar List yang ada: 
-				{% for list in thelists %}
-					<td><a href="/lists/{{ list.id }}" style="text-decoration: none">{{ list.id }} &nbsp </a></td>
-				{% endfor %}
-			</tr>
-		</table>
-	</body>
-</html>
- 
+{% extends 'base.html' %}
+
+{% block header_text %}Start a new To-Do list{% endblock %}
+
+{% block form_action %}/lists/new{% endblock %}
+
+{% block table %}
+	<table id="id_list_table">
+		<tr> Daftar List yang ada: 
+			{% for list in thelists %}
+				<td><a href="/lists/{{ list.id }}" style="text-decoration: none">{{ list.id }} &nbsp </a></td>
+			{% endfor %}
+		</tr>
+	</table>
+{% endblock %}
