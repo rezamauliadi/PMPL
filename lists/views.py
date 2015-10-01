@@ -4,15 +4,9 @@ from lists.models import Item, List
 
 def home_page(request):
 	alllist = List.objects.all()
+	allitem = Item.objects.all()
 	
-	totalList = 0
-	
-	if alllist.count() == 0:
-		totalList = 0
-	else:
-		for list_ in alllist:
-			countList = list_.item_set.all()
-			totalList = totalList + countList.count()
+	totalList = allitem.count()
 	
 	komentar = 'oh tidak'
 	if totalList == 0:
