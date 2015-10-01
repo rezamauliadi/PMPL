@@ -7,7 +7,7 @@ def home_page(request):
 	
 	totalList = 0
 	
-	if alllist.count() != 0:
+	if not alllist:
 		for list_ in alllist:
 			countList = list_.item_set.all()
 			totalList = totalList + countList.count()
