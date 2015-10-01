@@ -7,10 +7,11 @@ def home_page(request):
 	
 	totalList = 0
 	
-	for list_ in alllist:
-		countList = list_.item_set.all()
-		totalList = totalList + countList.count()
-	
+	if alllist.count() != 0:
+		for list_ in alllist:
+			countList = list_.item_set.all()
+			totalList = totalList + countList.count()
+		
 	komentar = 'oh tidak'
 	if totalList == 0:
 		komentar = 'yey, waktunya berlibur'
