@@ -13,4 +13,18 @@
 			<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
 		</div>
 	</div>
+	<div class="panel panel-primary" style="margin-top: -20px;">
+		<div class="panel-body">
+			<p id="jumlah">Jumlah seluruh To-Do lists: <strong>{{ jumlah|default:"0" }}</strong></p>
+			<p>Daftar List yang ada: </p>
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					{% for list in thelists %}
+						<a href="/lists/{{ list.id }}" class="btn btn-default">{{ list.id }}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	
 {% endblock %}

@@ -3,9 +3,17 @@ from django.shortcuts import redirect, render
 from lists.models import Item, List
 
 def home_page(request):
-	komentar = 'yey, waktunya berlibur'
+	alllist = List.objects.all()
+	totalList = Item.objects.count()
 		
-	return render(request, 'home.html', {'komentarhtml': komentar})
+	komentar = 'oh tidak'
+	if totalList == 0:
+		komentar = 'yey, waktunya berlibur'
+	elif totalList < 5:
+		komentar = 'sibuk tapi santai'
+		
+	return render(request, 'home.html', {'thelists': alllist, 'komentarhtml': komentar, 'jumlah': totalList})
+	
 
 def view_list(request, list_id):
 	list_ = List.objects.get(id=list_id)
