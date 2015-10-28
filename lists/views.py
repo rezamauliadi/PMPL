@@ -4,6 +4,7 @@ from lists.models import Item, List
 
 def home_page(request):
 	alllist = List.objects.all()
+	totalAllLists = alllist.count()
 	totalList = Item.objects.count()
 		
 	komentar = 'oh tidak'
@@ -12,7 +13,7 @@ def home_page(request):
 	elif totalList < 5:
 		komentar = 'sibuk tapi santai'
 		
-	return render(request, 'home.html', {'thelists': alllist, 'komentarhtml': komentar, 'jumlah': totalList})
+	return render(request, 'home.html', {'totalAllLists': totalAllLists, 'thelists': alllist, 'komentarhtml': komentar, 'jumlah': totalList})
 	
 
 def view_list(request, list_id):
@@ -21,13 +22,15 @@ def view_list(request, list_id):
 	set_of_list = list_.item_set.all()
 	total = set_of_list.count()
 	
+	alllist = List.objects.all()
+	
 	komentar = 'oh tidak'
 	if total == 0:
 		komentar = 'yey, waktunya berlibur'
 	elif total < 5:
 		komentar = 'sibuk tapi santai'
 		
-	return render(request, 'list.html', {'list': list_, 'komentarhtml': komentar})
+	return render(request, 'list.html', {'thelists': alllist, 'list': list_, 'komentarhtml': komentar})
 	
 def new_list(request):
 	list_ = List.objects.create()

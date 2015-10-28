@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 
+{% block alllistlink %}
+	{% for list in thelists %}
+			<li><a href="/lists/{{ list.id }}">List {{ list.id }}</a></li>
+	{% endfor %}
+{% endblock %}
+
 {% block header_text %}Your To-Do list{% endblock %}
 
 {% block form_action %}/lists/{{ list.id }}/add_item{% endblock %}
 
 {% block table %}
-	<table id="id_list_table" class="table">
-		{% for item in list.item_set.all %}
-			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-		{% endfor %}
-	</table>
-	
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title">Comment</h3>
+	<div class="col-md-8 col-md-offset-2">
+		<div class="komentarStyle" style="margin-top: -15px;">
+			<h4 id="komentar"><strong>"{{ komentarhtml|default:"yey, waktunya berlibur" }}"</strong></h4>
 		</div>
-		<div class="panel-body">
-			<p id="komentar">{{ komentarhtml|default:"yey, waktunya berlibur" }}</p>
-		</div>
+		
+		<table id="id_list_table" class="table">
+			{% for item in list.item_set.all %}
+				<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+			{% endfor %}
+		</table>
+		
+		<a href="/" class="btn btn-primary" style="text-decoration: none"> &#10094 Back</a>
 	</div>
-	
-	<a href="/" class="btn btn-primary" style="text-decoration: none"> &#10094 Back</a>
 {% endblock %}
 
  
