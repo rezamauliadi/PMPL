@@ -134,6 +134,7 @@ class ListAndItemModelsTest(TestCase):
 		
 		request = HttpRequest()
 		response = view_list(request, list_.id)
+		response2 = home_page(request)
 		
 		self.assertIn('yey, waktunya berlibur', response.content.decode())
 		self.assertIn('0', response2.content.decode())
@@ -164,6 +165,7 @@ class ListAndItemModelsTest(TestCase):
 		
 		request = HttpRequest()
 		response = view_list(request, list_.id)
+		response2 = home_page(request)
 		
 		self.assertIn('oh tidak', response.content.decode())
 		self.assertIn('5', response2.content.decode())
