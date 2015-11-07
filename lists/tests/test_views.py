@@ -49,6 +49,51 @@ class ListViewTest(TestCase):
 		response = self.client.get('/lists/%d/' % (correct_list.id,))
 		self.assertEqual(response.context['list'], correct_list)
 
+#-------------------- unit tests for tutorial ----------------------------#
+
+	def test_tutorial2_for_comment_yeywaktunyaberlibur(self):
+		list_ = List()
+		list_.save()
+		
+		request = HttpRequest()
+		response = view_list(request, list_.id)
+		response2 = home_page(request)
+		
+		self.assertIn('yey, waktunya berlibur', response.content.decode())
+		self.assertIn('0', response2.content.decode())
+		
+	def test_tutorial2_for_comment_sibuktapisantai(self):
+		list_ = List()
+		list_.save()
+		
+		Item.objects.create(text='itemey 1', list=list_)
+		
+		request = HttpRequest()
+		response = view_list(request, list_.id)
+		response2 = home_page(request)
+		
+		self.assertIn('sibuk tapi santai', response.content.decode())
+		self.assertIn('sibuk tapi santai', response2.content.decode())
+		self.assertIn('1', response2.content.decode())
+		
+	def test_tutorial2_for_comment_ohtidak(self):
+		list_ = List()
+		list_.save()
+		
+		Item.objects.create(text='itemey 1', list=list_)
+		Item.objects.create(text='itemey 2', list=list_)
+		Item.objects.create(text='itemey 3', list=list_)
+		Item.objects.create(text='itemey 4', list=list_)
+		Item.objects.create(text='itemey 5', list=list_)
+		
+		request = HttpRequest()
+		response = view_list(request, list_.id)
+		response2 = home_page(request)
+		
+		self.assertIn('oh tidak', response.content.decode())
+		self.assertIn('5', response2.content.decode())
+
+#-------------------- end of unit tests for tutorial ----------------------------#
 
 class NewItemTest(TestCase):
 	def test_can_save_a_POST_request_to_an_existing_list(self):
@@ -96,76 +141,3 @@ class NewListTest(TestCase):
 		new_list = List.objects.first()
 		self.assertRedirects(response, '/lists/%d/' % (new_list.id,))
 
-
-class ListAndItemModelsTest(TestCase):
-
-	def test_saving_and_retrieving_items(self):
-		list_ = List()
-		list_.save()
-		
-		first_item = Item()
-		first_item.text = 'The first (ever) list item'
-		first_item.list = list_
-		first_item.save()
-
-		second_item = Item()
-		second_item.text = 'Item the second'
-		second_item.list = list_
-		second_item.save()
-
-		saved_list = List.objects.first()
-		self.assertEqual(saved_list, list_)
-		
-		saved_items = Item.objects.all()
-		self.assertEqual(saved_items.count(), 2)
-
-		first_saved_item = saved_items[0]
-		second_saved_item = saved_items[1]
-		self.assertEqual(first_saved_item.text, 'The first (ever) list item')
-		self.assertEqual(first_saved_item.list, list_)
-		self.assertEqual(second_saved_item.text, 'Item the second')
-		self.assertEqual(second_saved_item.list, list_)
-
-#-------------------- end of unit tests ----------------------------#
-
-	def test_tutorial2_for_comment_yeywaktunyaberlibur(self):
-		list_ = List()
-		list_.save()
-		
-		request = HttpRequest()
-		response = view_list(request, list_.id)
-		response2 = home_page(request)
-		
-		self.assertIn('yey, waktunya berlibur', response.content.decode())
-		self.assertIn('0', response2.content.decode())
-		
-	def test_tutorial2_for_comment_sibuktapisantai(self):
-		list_ = List()
-		list_.save()
-		
-		Item.objects.create(text='itemey 1', list=list_)
-		
-		request = HttpRequest()
-		response = view_list(request, list_.id)
-		response2 = home_page(request)
-		
-		self.assertIn('sibuk tapi santai', response.content.decode())
-		self.assertIn('sibuk tapi santai', response2.content.decode())
-		self.assertIn('1', response2.content.decode())
-		
-	def test_tutorial2_for_comment_ohtidak(self):
-		list_ = List()
-		list_.save()
-		
-		Item.objects.create(text='itemey 1', list=list_)
-		Item.objects.create(text='itemey 2', list=list_)
-		Item.objects.create(text='itemey 3', list=list_)
-		Item.objects.create(text='itemey 4', list=list_)
-		Item.objects.create(text='itemey 5', list=list_)
-		
-		request = HttpRequest()
-		response = view_list(request, list_.id)
-		response2 = home_page(request)
-		
-		self.assertIn('oh tidak', response.content.decode())
-		self.assertIn('5', response2.content.decode())
