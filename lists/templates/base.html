@@ -27,7 +27,6 @@
 		
 		
 		<div>
-						
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="text-center" style="margin-top: -15px">
@@ -44,6 +43,11 @@
 									/>
 								</div>
 								{% csrf_token %}
+								{% if error %}
+									<div class="form-group has-error">
+										<span class="help-block">{{ error }}</span>
+									</div>
+								{% endif %}
 							</form>
 						</div>
 					</div>
@@ -62,7 +66,6 @@
 					<p style="text-align: right">Copyright &copy Reza Mauliadi</p>
 				</div>
 			</div>
-			
 		</div>
 	</body>
 </html>
