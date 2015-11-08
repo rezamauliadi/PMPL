@@ -19,14 +19,20 @@ def home_page(request):
 
 def view_list(request, list_id):
 	list_ = List.objects.get(id=list_id)
-	
+	error = None
+
 	if request.method == 'POST':
-		Item.objects.create(text=request.POST['item_text'], list=list_)
-		return redirect('/lists/%d/' % (list_.id,))
+		try:
+			item = Item.objects.create(text=request.POST['item_text'], list=list_)
+			item.full_clean()
+			item.save()
+			return redirect('/lists/%d/' % (list_.id,))
+		except ValidationError:
+			item.delete()
+			error = "You can't have an empty list item"
 
 	set_of_list = list_.item_set.all()
 	total = set_of_list.count()
-	
 	alllist = List.objects.all()
 	
 	komentar = 'oh tidak'
@@ -35,7 +41,7 @@ def view_list(request, list_id):
 	elif total < 5:
 		komentar = 'sibuk tapi santai'
 		
-	return render(request, 'list.html', {'thelists': alllist, 'list': list_, 'komentarhtml': komentar})
+	return render(request, 'list.html', {'thelists': alllist, 'list': list_, 'komentarhtml': komentar, "error": error})
 	
 def new_list(request):
 	list_ = List.objects.create()
@@ -46,5 +52,16 @@ def new_list(request):
 	except ValidationError:
 		list_.delete()
 		error = "You can't have an empty list item"
-		return render(request, 'home.html', {"error": error})
+
+		alllist = List.objects.all()
+		totalAllLists = alllist.count()
+		totalList = Item.objects.count()
+			
+		komentar = 'oh tidak'
+		if totalList == 0:
+			komentar = 'yey, waktunya berlibur'
+		elif totalList < 5:
+			komentar = 'sibuk tapi santai'
+
+		return render(request, 'home.html', {'totalAllLists': totalAllLists, 'thelists': alllist, "error": error, 'komentarhtml': komentar, 'jumlah': totalList})
 	return redirect('/lists/%d/' % (list_.id,))
